@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0px;
+        }
+        .popup {
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            animation: init 0.3s ease-in-out;
+        }
+        .popup.clicked {
+            animation: out 0.3s ease-in-out;
+        }
+        .alert {
+            color: darkred;
+            background-color: red;
+            box-shadow: 4px 4px 4px darkred;
+        }
+        .warning {
+            background-color: yellow;
+            color: goldenrod;
+            box-shadow: 4px 4px 4px goldenrod;
+        }
+        .notification {
+            color: rgb(12, 48, 83);
+            background-color:dodgerblue;
+            box-shadow: 4px 4px 4px rgb(12, 48, 83);
+        }
+        .message_box {
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px;
+            width: fit-content;
+            box-shadow: 1px 1px 3px black;
+        }
+        @keyframes init {
+            0% {
+                transform: translateX(150%);
+            }
+            80% {
+                transform: translateX(-5%);
+            }
+            100% {
+                transform: translateX(0%);
+            }
+        }
+        @keyframes out {
+            0% {
+                transform: translateX(0%);
+            }
+            20% {
+                transform: translateX(-5%);
+            }
+            100% {
+                transform: translateX(150%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="message_box">
+        <h2>Create alert</h2>
+        <p>
+            <input type="text" name="message" id="message" placeholder="message" /><br/>
+        </p>
+        <p>
+            <input type="radio" name="mode" value="alert" /> Alert<br/>
+            <input type="radio" name="mode" value="warning" /> Warning<br/>
+            <input type="radio" name="mode" value="notification" /> Notification<br/>
+        </p>
+        <p>
+            <button id="make_alert">Utwórz alert</button>
+        </p>
+    </div>
+    <script src="Alert.js"></script>
+    <script>
+        const alert = new Alert(document.body);
+        document.getElementById("make_alert").addEventListener("click", () => {
+            let value = "alert";
+            for (const element of [...document.getElementsByName("mode")]) {
+                if(element.checked) {
+                    value = element.value;
+                    break;
+                }
+            }
+            alert.popup(document.getElementById("message").value, value);
+        });
+    </script>
+</body>
+</html>
